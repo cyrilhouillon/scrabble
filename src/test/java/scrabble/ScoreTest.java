@@ -1,6 +1,8 @@
 package scrabble;
 
+import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -63,7 +65,10 @@ class ScoreTest {
 		Map<Integer, ? extends Collection<String>> histogram = scrabble.computeHistogram(getPlayedWords(),
 				getDictionary());
 
-		List<Entry<Integer, ? extends Collection<String>>> bestScores = null;
+		List<Entry<Integer, ? extends Collection<String>>> bestScores = histogram.entrySet().stream()//
+				.sorted(comparing((Entry<Integer, ? extends Collection<String>> entry) -> entry.getKey()).reversed())//
+				.limit(3)//
+				.collect(toList());
 
 		assertEquals(33, bestScores.get(0).getKey().intValue());
 		assertEquals(29, bestScores.get(1).getKey().intValue());
