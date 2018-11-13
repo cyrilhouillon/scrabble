@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class ScoreTest {
 
-	Scrabble scrabble = new Scrabble();
+	Scrabble scrabble = new Scrabble(Scrabble.ENGLISH_SCORING);
 
 	@Test
 	void test() {
