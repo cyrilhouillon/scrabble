@@ -87,6 +87,17 @@ class ScoreTest {
 		assertTrue(bestScores.get(2).getValue().contains("buzzing"));
 	}
 
+	@Test
+	void only_count_available_letters() {
+
+		assertEquals(26, scrabble.computeScore("squeezes"));
+		assertEquals(25, scrabble.computeScore("quickly"));
+		assertEquals(23, scrabble.computeScore("whizzing"));
+		assertEquals(19, scrabble.computeScore("buzzards"));
+		assertEquals(7, scrabble.computeScore("delated"));
+
+	}
+
 	private List<String> getDictionary() {
 		if (dictionary == null) {
 			try {
