@@ -2,6 +2,7 @@ package scrabble;
 
 import static java.util.Comparator.comparingInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -10,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.jupiter.api.Test;
 
@@ -53,6 +55,31 @@ class ScoreTest {
 		assertEquals(360, histogram.get(16).size());
 		assertEquals(1459, histogram.get(8).size());
 		assertEquals(26, histogram.get(2).size());
+	}
+
+	@Test
+	void find_the_words_having_best_3_scores() {
+
+		Map<Integer, ? extends Collection<String>> histogram = scrabble.computeHistogram(getPlayedWords(),
+				getDictionary());
+
+		List<Entry<Integer, ? extends Collection<String>>> bestScores = null;
+
+		assertEquals(33, bestScores.get(0).getKey().intValue());
+		assertEquals(29, bestScores.get(1).getKey().intValue());
+		assertEquals(28, bestScores.get(2).getKey().intValue());
+
+		assertTrue(bestScores.get(0).getValue().contains("whizzing"));
+		assertTrue(bestScores.get(1).getValue().contains("buzzards"));
+		assertTrue(bestScores.get(2).getValue().contains("mazzard"));
+		assertTrue(bestScores.get(2).getValue().contains("dazzling"));
+		assertTrue(bestScores.get(2).getValue().contains("grizzled"));
+		assertTrue(bestScores.get(2).getValue().contains("puzzled"));
+		assertTrue(bestScores.get(2).getValue().contains("unmuzzle"));
+		assertTrue(bestScores.get(2).getValue().contains("drizzled"));
+		assertTrue(bestScores.get(2).getValue().contains("muzzled"));
+		assertTrue(bestScores.get(2).getValue().contains("buzzard"));
+		assertTrue(bestScores.get(2).getValue().contains("buzzing"));
 	}
 
 	private List<String> getDictionary() {
