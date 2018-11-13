@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +39,19 @@ class ScoreTest {
 
 		assertEquals("whizzing", bestWord);
 		assertEquals(33, scrabble.computeScore(bestWord));
+	}
+
+	@Test
+	void histogram_should_group_the_words_by_score() {
+
+		Map<Integer, Collection<String>> histogram = scrabble.computeHistogram(getPlayedWords(), getDictionary());
+
+		assertEquals(29, histogram.size());
+		assertEquals(1, histogram.get(33).size());
+		assertEquals(9, histogram.get(28).size());
+		assertEquals(360, histogram.get(16).size());
+		assertEquals(1459, histogram.get(8).size());
+		assertEquals(26, histogram.get(2).size());
 	}
 
 	private List<String> getDictionary() {
