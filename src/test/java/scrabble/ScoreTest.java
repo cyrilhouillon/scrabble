@@ -1,5 +1,6 @@
 package scrabble;
 
+import static java.util.Comparator.comparingInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -29,8 +30,12 @@ class ScoreTest {
 				.readAllLines(Paths.get(this.getClass().getClassLoader().getResource("playedwords.txt").toURI()));
 		List<String> dictionary = Files
 				.readAllLines(Paths.get(this.getClass().getClassLoader().getResource("dictionary.txt").toURI()));
-		
-		String bestWord = "";
+
+		String bestWord = playedWords.stream()//
+				.filter(word -> dictionary.contains(word))//
+				.sorted(comparingInt(scrabble::computeScore).reversed())//
+				.findFirst()//
+				.get();
 
 		assertEquals("whizzing", bestWord);
 		assertEquals(33, scrabble.computeScore(bestWord));
