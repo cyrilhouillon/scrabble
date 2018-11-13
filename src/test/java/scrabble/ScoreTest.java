@@ -44,7 +44,8 @@ class ScoreTest {
 	@Test
 	void histogram_should_group_the_words_by_score() {
 
-		Map<Integer, Collection<String>> histogram = scrabble.computeHistogram(getPlayedWords(), getDictionary());
+		Map<Integer, ? extends Collection<String>> histogram = scrabble.computeHistogram(getPlayedWords(),
+				getDictionary());
 
 		assertEquals(29, histogram.size());
 		assertEquals(1, histogram.get(33).size());

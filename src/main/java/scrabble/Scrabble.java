@@ -1,5 +1,7 @@
 package scrabble;
 
+import static java.util.stream.Collectors.groupingBy;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +21,9 @@ public class Scrabble {
 				.sum();
 	}
 
-	public Map<Integer, Collection<String>> computeHistogram(List<String> playedWords, List<String> dictionary) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<Integer, ? extends Collection<String>> computeHistogram(List<String> playedWords,
+			List<String> dictionary) {
+		return playedWords.stream().filter(dictionary::contains).collect(groupingBy(this::computeScore));
 	}
 
 }
