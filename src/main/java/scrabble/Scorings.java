@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Scorings {
 
-	public static Scoring ENGLISH_SCORING = new Scoring(new HashMap<Letter, Integer>() {
+	public static Scoring ENGLISH_SCORING = new UnlimitedScoring(new HashMap<Letter, Integer>() {
 		{
 			put(new Letter('A'), 1);
 			put(new Letter('B'), 3);

@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -90,12 +91,49 @@ class ScoreTest {
 	@Test
 	void only_count_available_letters() {
 
-		assertEquals(26, scrabble.computeScore("squeezes"));
-		assertEquals(25, scrabble.computeScore("quickly"));
-		assertEquals(23, scrabble.computeScore("whizzing"));
-		assertEquals(19, scrabble.computeScore("buzzards"));
-		assertEquals(7, scrabble.computeScore("delated"));
+		assertEquals(26, newLimitedScrabble().computeScore("squeezes"));
+		assertEquals(25, newLimitedScrabble().computeScore("quickly"));
+		assertEquals(23, newLimitedScrabble().computeScore("whizzing"));
+		assertEquals(19, newLimitedScrabble().computeScore("buzzards"));
+		assertEquals(7, newLimitedScrabble().computeScore("delated"));
 
+	}
+
+	private Scrabble newLimitedScrabble() {
+		return new Scrabble(new LimitedLettersScoring(Scorings.ENGLISH_SCORING, getAvailableLetters()));
+	}
+
+	private Map<Letter, Integer> getAvailableLetters() {
+		return new HashMap<Letter, Integer>() {
+			{
+				put(new Letter('A'), 99);
+				put(new Letter('B'), 2);
+				put(new Letter('C'), 2);
+				put(new Letter('D'), 1);
+				put(new Letter('E'), 12);
+				put(new Letter('F'), 2);
+				put(new Letter('G'), 3);
+				put(new Letter('H'), 2);
+				put(new Letter('I'), 99);
+				put(new Letter('J'), 1);
+				put(new Letter('K'), 1);
+				put(new Letter('L'), 4);
+				put(new Letter('M'), 2);
+				put(new Letter('N'), 6);
+				put(new Letter('O'), 8);
+				put(new Letter('P'), 2);
+				put(new Letter('Q'), 1);
+				put(new Letter('R'), 6);
+				put(new Letter('S'), 4);
+				put(new Letter('T'), 6);
+				put(new Letter('U'), 4);
+				put(new Letter('V'), 2);
+				put(new Letter('W'), 2);
+				put(new Letter('X'), 1);
+				put(new Letter('Y'), 2);
+				put(new Letter('Z'), 1);
+			}
+		};
 	}
 
 	private List<String> getDictionary() {
